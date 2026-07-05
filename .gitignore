@@ -224,3 +224,7 @@ data/simulations/.credentials/
 
 # Cursor IDE
 .cursor/
+
+# experiment scratch noise (keep scripts + writeups, drop per-run logs/backups)
+scratch/log_*.txt
+scratch/*.bak

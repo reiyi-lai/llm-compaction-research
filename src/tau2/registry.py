@@ -7,6 +7,12 @@ from pydantic import BaseModel
 from tau2.agent.discrete_time_audio_native_agent import (
     create_discrete_time_audio_native_agent,
 )
+from tau2.agent.consolidating_agent import (
+    create_consolidate_json,
+    create_consolidate_json_struct,
+    create_consolidate_md,
+    create_consolidate_prose,
+)
 from tau2.agent.llm_agent import (
     LLMGTAgent,
     LLMSoloAgent,
@@ -305,6 +311,12 @@ try:
         "llm_agent_solo",
         task_filter=LLMSoloAgent.check_valid_task,
         metadata={"solo_mode": True},
+    )
+    registry.register_agent_factory(create_consolidate_prose, "consolidate_prose")
+    registry.register_agent_factory(create_consolidate_md, "consolidate_md")
+    registry.register_agent_factory(create_consolidate_json, "consolidate_json")
+    registry.register_agent_factory(
+        create_consolidate_json_struct, "consolidate_json_struct"
     )
     registry.register_agent_factory(
         create_discrete_time_audio_native_agent,

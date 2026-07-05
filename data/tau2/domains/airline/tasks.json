@@ -3517,5 +3517,1291 @@
             ]
         },
         "annotations": null
+    },
+    {
+        "id": "100",
+        "description": {
+            "purpose": "Compaction study Task A: economy flight change, expected outcome = Modify. Constraints front-loaded pre-consolidation; exact flight/payment identifiers must survive the Knowledge block.",
+            "relevant_policies": null,
+            "notes": null
+        },
+        "user_scenario": {
+            "persona": null,
+            "instructions": {
+                "domain": "airline",
+                "reason_for_call": "You want to change the flight on your existing one-way Charlotte (CLT) to Orlando (MCO) reservation on May 24, 2024. You have a morning commitment that day, so you need to leave later in the day.",
+                "known_info": "Your user id is 'lei_rossi_3206'.\nThe trip you want to change is your one-way Charlotte (CLT) to Orlando (MCO) reservation on 2024-05-24.\nYou want to pay any fare difference with your Visa card ending in 7447.",
+                "unknown_info": "You do not remember your reservation ID.\nYou do not know which flights are available, or their flight numbers, departure times, or prices \u2014 the agent must look these up for you.",
+                "task_instructions": "Early in the conversation, state your full request and ALL of your requirements:\n- The new flight must depart AFTER 11:00 EST on 2024-05-24. You have a morning commitment, so any flight departing at or before 11:00 EST does not work, even if it is cheaper.\n- Keep the same cabin (economy). Do not accept an upgrade or downgrade.\n- Among the qualifying flights, you want the CHEAPEST one.\n- Pay any fare difference with your Visa card ending in 7447 \u2014 not a certificate or any other card.\n\nProvide your user id and identify the trip (Charlotte to Orlando, May 24) when the agent asks in order to look up your account. Let the agent search for and propose flights; do not suggest flight numbers yourself. When the agent proposes a specific flight and tells you the fare difference, confirm and authorize the payment so the change is made. Be concise and cooperative, and do not volunteer personal details the agent has not asked for beyond your initial request."
+            }
+        },
+        "initial_state": {
+            "initialization_data": {
+                "agent_data": {
+                    "flights": {
+                        "HAT900": {
+                            "flight_number": "HAT900",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "06:00:00",
+                            "scheduled_arrival_time_est": "08:05:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 69,
+                                        "economy": 99,
+                                        "business": 249
+                                    }
+                                }
+                            }
+                        },
+                        "HAT901": {
+                            "flight_number": "HAT901",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "07:30:00",
+                            "scheduled_arrival_time_est": "09:35:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 78,
+                                        "economy": 108,
+                                        "business": 258
+                                    }
+                                }
+                            }
+                        },
+                        "HAT902": {
+                            "flight_number": "HAT902",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "08:15:00",
+                            "scheduled_arrival_time_est": "10:20:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 65,
+                                        "economy": 95,
+                                        "business": 245
+                                    }
+                                }
+                            }
+                        },
+                        "HAT903": {
+                            "flight_number": "HAT903",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "09:00:00",
+                            "scheduled_arrival_time_est": "11:05:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 102,
+                                        "economy": 132,
+                                        "business": 282
+                                    }
+                                }
+                            }
+                        },
+                        "HAT904": {
+                            "flight_number": "HAT904",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "09:45:00",
+                            "scheduled_arrival_time_est": "11:50:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 91,
+                                        "economy": 121,
+                                        "business": 271
+                                    }
+                                }
+                            }
+                        },
+                        "HAT905": {
+                            "flight_number": "HAT905",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "10:30:00",
+                            "scheduled_arrival_time_est": "12:35:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 110,
+                                        "economy": 140,
+                                        "business": 290
+                                    }
+                                }
+                            }
+                        },
+                        "HAT906": {
+                            "flight_number": "HAT906",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "11:15:00",
+                            "scheduled_arrival_time_est": "13:20:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 168,
+                                        "economy": 198,
+                                        "business": 348
+                                    }
+                                }
+                            }
+                        },
+                        "HAT907": {
+                            "flight_number": "HAT907",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "12:00:00",
+                            "scheduled_arrival_time_est": "14:05:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 159,
+                                        "economy": 189,
+                                        "business": 339
+                                    }
+                                }
+                            }
+                        },
+                        "HAT908": {
+                            "flight_number": "HAT908",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "13:20:00",
+                            "scheduled_arrival_time_est": "15:25:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 176,
+                                        "economy": 206,
+                                        "business": 356
+                                    }
+                                }
+                            }
+                        },
+                        "HAT909": {
+                            "flight_number": "HAT909",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "14:05:00",
+                            "scheduled_arrival_time_est": "16:10:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 155,
+                                        "economy": 185,
+                                        "business": 335
+                                    }
+                                }
+                            }
+                        },
+                        "HAT910": {
+                            "flight_number": "HAT910",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "15:30:00",
+                            "scheduled_arrival_time_est": "17:35:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 162,
+                                        "economy": 192,
+                                        "business": 342
+                                    }
+                                }
+                            }
+                        },
+                        "HAT911": {
+                            "flight_number": "HAT911",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "16:45:00",
+                            "scheduled_arrival_time_est": "18:50:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 167,
+                                        "economy": 197,
+                                        "business": 347
+                                    }
+                                }
+                            }
+                        },
+                        "HAT912": {
+                            "flight_number": "HAT912",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "18:00:00",
+                            "scheduled_arrival_time_est": "20:05:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 173,
+                                        "economy": 203,
+                                        "business": 353
+                                    }
+                                }
+                            }
+                        },
+                        "HAT913": {
+                            "flight_number": "HAT913",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "19:30:00",
+                            "scheduled_arrival_time_est": "21:35:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 165,
+                                        "economy": 195,
+                                        "business": 345
+                                    }
+                                }
+                            }
+                        },
+                        "HAT914": {
+                            "flight_number": "HAT914",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "21:10:00",
+                            "scheduled_arrival_time_est": "23:15:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 158,
+                                        "economy": 188,
+                                        "business": 338
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "users": {
+                        "lei_rossi_3206": {
+                            "payment_methods": {
+                                "credit_card_3092185": {
+                                    "source": "credit_card",
+                                    "id": "credit_card_3092185",
+                                    "brand": "visa",
+                                    "last_four": "7447"
+                                }
+                            }
+                        }
+                    },
+                    "reservations": {
+                        "VAAOXJ": {
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "flight_type": "one_way",
+                            "cabin": "economy",
+                            "flights": [
+                                {
+                                    "origin": "CLT",
+                                    "destination": "MCO",
+                                    "flight_number": "HAT902",
+                                    "date": "2024-05-24",
+                                    "price": 95
+                                }
+                            ]
+                        }
+                    }
+                },
+                "user_data": null
+            },
+            "initialization_actions": null,
+            "message_history": null
+        },
+        "evaluation_criteria": {
+            "actions": [
+                {
+                    "action_id": "A_0",
+                    "name": "get_user_details",
+                    "arguments": {
+                        "user_id": "lei_rossi_3206"
+                    }
+                },
+                {
+                    "action_id": "A_1",
+                    "name": "get_reservation_details",
+                    "arguments": {
+                        "reservation_id": "VAAOXJ"
+                    }
+                },
+                {
+                    "action_id": "A_2",
+                    "name": "search_direct_flight",
+                    "arguments": {
+                        "origin": "CLT",
+                        "destination": "MCO",
+                        "date": "2024-05-24"
+                    }
+                },
+                {
+                    "action_id": "A_3",
+                    "name": "update_reservation_flights",
+                    "arguments": {
+                        "reservation_id": "VAAOXJ",
+                        "cabin": "economy",
+                        "flights": [
+                            {
+                                "flight_number": "HAT909",
+                                "date": "2024-05-24"
+                            }
+                        ],
+                        "payment_id": "credit_card_3092185"
+                    }
+                }
+            ],
+            "communicate_info": [
+                "HAT909"
+            ],
+            "nl_assertions": [
+                "Agent identifies HAT909 as the cheapest flight departing after 11:00 EST on 2024-05-24 and proposes changing the reservation to it.",
+                "Agent informs the user that the fare difference is $90 and asks the user to confirm payment with the Visa card ending 7447 before making the change.",
+                "Agent keeps the reservation in economy cabin."
+            ],
+            "reward_basis": [
+                "DB",
+                "COMMUNICATE"
+            ]
+        },
+        "annotations": null
+    },
+    {
+        "id": "101",
+        "description": {
+            "purpose": "Compaction study Task B: basic-economy flight change, expected outcome = Do Not Modify. Matched to Task A; the decisive fact (cabin = basic_economy) is categorical and should survive all formats, so we predict no format divergence here.",
+            "relevant_policies": "Basic economy flights cannot be modified (policy).",
+            "notes": null
+        },
+        "user_scenario": {
+            "persona": null,
+            "instructions": {
+                "domain": "airline",
+                "reason_for_call": "You want to change the flight on your existing one-way Charlotte (CLT) to Orlando (MCO) reservation on May 24, 2024. You have a morning commitment that day, so you need to leave later in the day.",
+                "known_info": "Your user id is 'lei_rossi_3206'.\nThe trip you want to change is your one-way Charlotte (CLT) to Orlando (MCO) reservation on 2024-05-24.\nYou want to pay any fare difference with your Visa card ending in 7447.",
+                "unknown_info": "You do not remember your reservation ID.\nYou do not know which flights are available, or their flight numbers, departure times, or prices \u2014 the agent must look these up for you.\nYou do not know or care about the cabin class rules; you just want a later flight.",
+                "task_instructions": "Early in the conversation, state your full request and ALL of your requirements:\n- The new flight must depart AFTER 11:00 EST on 2024-05-24. You have a morning commitment, so any flight departing at or before 11:00 EST does not work, even if it is cheaper.\n- Keep the same cabin class \u2014 do not upgrade or downgrade.\n- Among the qualifying flights, you want the CHEAPEST one.\n- Pay any fare difference with your Visa card ending in 7447.\n\nProvide your user id and identify the trip (Charlotte to Orlando, May 24) when the agent asks in order to look up your account. Let the agent search for and propose flights; do not suggest flight numbers yourself.\n\nIMPORTANT fallback: If the agent tells you the reservation is basic economy and that the flight therefore cannot be changed, accept this politely. Do NOT ask to upgrade the cabin, cancel, or rebook \u2014 you will handle it yourself later. Simply acknowledge and end the conversation. Be concise and cooperative throughout."
+            }
+        },
+        "initial_state": {
+            "initialization_data": {
+                "agent_data": {
+                    "flights": {
+                        "HAT900": {
+                            "flight_number": "HAT900",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "06:00:00",
+                            "scheduled_arrival_time_est": "08:05:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 69,
+                                        "economy": 99,
+                                        "business": 249
+                                    }
+                                }
+                            }
+                        },
+                        "HAT901": {
+                            "flight_number": "HAT901",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "07:30:00",
+                            "scheduled_arrival_time_est": "09:35:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 78,
+                                        "economy": 108,
+                                        "business": 258
+                                    }
+                                }
+                            }
+                        },
+                        "HAT902": {
+                            "flight_number": "HAT902",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "08:15:00",
+                            "scheduled_arrival_time_est": "10:20:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 65,
+                                        "economy": 95,
+                                        "business": 245
+                                    }
+                                }
+                            }
+                        },
+                        "HAT903": {
+                            "flight_number": "HAT903",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "09:00:00",
+                            "scheduled_arrival_time_est": "11:05:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 102,
+                                        "economy": 132,
+                                        "business": 282
+                                    }
+                                }
+                            }
+                        },
+                        "HAT904": {
+                            "flight_number": "HAT904",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "09:45:00",
+                            "scheduled_arrival_time_est": "11:50:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 91,
+                                        "economy": 121,
+                                        "business": 271
+                                    }
+                                }
+                            }
+                        },
+                        "HAT905": {
+                            "flight_number": "HAT905",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "10:30:00",
+                            "scheduled_arrival_time_est": "12:35:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 110,
+                                        "economy": 140,
+                                        "business": 290
+                                    }
+                                }
+                            }
+                        },
+                        "HAT906": {
+                            "flight_number": "HAT906",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "11:15:00",
+                            "scheduled_arrival_time_est": "13:20:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 168,
+                                        "economy": 198,
+                                        "business": 348
+                                    }
+                                }
+                            }
+                        },
+                        "HAT907": {
+                            "flight_number": "HAT907",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "12:00:00",
+                            "scheduled_arrival_time_est": "14:05:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 159,
+                                        "economy": 189,
+                                        "business": 339
+                                    }
+                                }
+                            }
+                        },
+                        "HAT908": {
+                            "flight_number": "HAT908",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "13:20:00",
+                            "scheduled_arrival_time_est": "15:25:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 176,
+                                        "economy": 206,
+                                        "business": 356
+                                    }
+                                }
+                            }
+                        },
+                        "HAT909": {
+                            "flight_number": "HAT909",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "14:05:00",
+                            "scheduled_arrival_time_est": "16:10:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 155,
+                                        "economy": 185,
+                                        "business": 335
+                                    }
+                                }
+                            }
+                        },
+                        "HAT910": {
+                            "flight_number": "HAT910",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "15:30:00",
+                            "scheduled_arrival_time_est": "17:35:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 162,
+                                        "economy": 192,
+                                        "business": 342
+                                    }
+                                }
+                            }
+                        },
+                        "HAT911": {
+                            "flight_number": "HAT911",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "16:45:00",
+                            "scheduled_arrival_time_est": "18:50:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 167,
+                                        "economy": 197,
+                                        "business": 347
+                                    }
+                                }
+                            }
+                        },
+                        "HAT912": {
+                            "flight_number": "HAT912",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "18:00:00",
+                            "scheduled_arrival_time_est": "20:05:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 173,
+                                        "economy": 203,
+                                        "business": 353
+                                    }
+                                }
+                            }
+                        },
+                        "HAT913": {
+                            "flight_number": "HAT913",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "19:30:00",
+                            "scheduled_arrival_time_est": "21:35:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 165,
+                                        "economy": 195,
+                                        "business": 345
+                                    }
+                                }
+                            }
+                        },
+                        "HAT914": {
+                            "flight_number": "HAT914",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "21:10:00",
+                            "scheduled_arrival_time_est": "23:15:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 158,
+                                        "economy": 188,
+                                        "business": 338
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "users": {
+                        "lei_rossi_3206": {
+                            "payment_methods": {
+                                "credit_card_3092185": {
+                                    "source": "credit_card",
+                                    "id": "credit_card_3092185",
+                                    "brand": "visa",
+                                    "last_four": "7447"
+                                }
+                            }
+                        }
+                    },
+                    "reservations": {
+                        "VAAOXJ": {
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "flight_type": "one_way",
+                            "cabin": "basic_economy",
+                            "flights": [
+                                {
+                                    "origin": "CLT",
+                                    "destination": "MCO",
+                                    "flight_number": "HAT902",
+                                    "date": "2024-05-24",
+                                    "price": 65
+                                }
+                            ]
+                        }
+                    }
+                },
+                "user_data": null
+            },
+            "initialization_actions": null,
+            "message_history": null
+        },
+        "evaluation_criteria": {
+            "actions": [],
+            "communicate_info": [],
+            "nl_assertions": [
+                "Agent determines the reservation is basic economy and explains that basic economy flights cannot be modified.",
+                "Agent declines to change the flight and does not modify, cancel, or rebook the reservation."
+            ],
+            "reward_basis": [
+                "DB",
+                "COMMUNICATE"
+            ]
+        },
+        "annotations": null
+    },
+    {
+        "id": "102",
+        "description": {
+            "purpose": "Multi-cut compounding-fidelity task: two needles (exact-id payment card + categorical after-11/cheapest) stated once, survive 2 consolidation cuts, applied on fresh trip-1 data at payoff. Tests whether structured consolidation retains exact identifiers through repeated re-compression better than prose.",
+            "relevant_policies": "List action details and obtain confirmation before update; single card for flight change.",
+            "notes": "Run with TAU2_MAX_CUTS=2, reads-on. Distractor searches (steps 2-3) trigger cuts 1-2."
+        },
+        "user_scenario": {
+            "persona": null,
+            "instructions": {
+                "domain": "airline",
+                "reason_for_call": "You are reorganizing several of your trips. Your main goal is to move your one-way Charlotte (CLT) to Orlando (MCO) reservation on 2024-05-24 to a later flight, but first you want the agent to look up options for a few other trips.",
+                "known_info": "Your user id is 'lei_rossi_3206'.\nYour reservations include: CLT->MCO on 2024-05-24 (id VAAOXJ), a PHX->LAS trip (id J7M7UY, 2024-05-20), a DFW->SEA trip (id QF32KM, 2024-05-21), and an EWR->CLT trip (id ZKTY6N, 2024-05-20).",
+                "unknown_info": "You do not know flight numbers, times, or prices for any trip \u2014 the agent must look them up.",
+                "task_instructions": "Follow this conversation order EXACTLY. State your requirements only ONCE, in step 1, and do NOT restate them afterward.\n\nSTEP 1 (say all of this up front, once, in a single message):\n'I'm reorganizing a few trips today. Later on I'll want to change my Charlotte (CLT) to Orlando (MCO) reservation (VAAOXJ) to the cheapest flight that departs after 11:00 AM that same day, and pay any fare difference with my Visa card ending 7447 \u2014 but please do NOT look that one up or change it yet. First, help me with some other trips. To start, what are the available flights for my PHX to LAS trip (J7M7UY) on May 20?'\nGive your user id if asked. Do NOT let the agent look up or touch the CLT->MCO reservation yet \u2014 if it tries, say 'not yet, let's do the other trips first.' Let the agent search PHX->LAS and list options; then say 'thanks, noted.'\n\nSTEP 2: 'Next, show me options for my DFW to SEA trip (QF32KM) on May 21.' Let the agent search and list options; say 'got it, thanks.'\n\nSTEP 3: 'Great, now let's do the main one \u2014 change my Charlotte to Orlando reservation based on the requirements I gave you at the start.' Let the agent search CLT->MCO and PROPOSE a specific flight. When it proposes one and tells you the fare difference, confirm you want that flight. Do NOT restate your rules \u2014 the agent should remember them.\n\nSTEP 4: When the agent asks how to pay / confirms the payment method, say 'yes, go ahead' and let the agent ACTUALLY MAKE the change. WAIT for the agent to confirm the reservation has been updated before you end the conversation \u2014 do NOT end on the same turn as your confirmation. Do NOT re-specify the card unless the agent proposes the WRONG card, in which case briefly correct it.\n\nThroughout: be concise; never re-explain your requirements after step 1."
+            }
+        },
+        "initial_state": {
+            "initialization_data": {
+                "agent_data": {
+                    "flights": {
+                        "HAT900": {
+                            "flight_number": "HAT900",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "06:00:00",
+                            "scheduled_arrival_time_est": "08:05:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 69,
+                                        "economy": 99,
+                                        "business": 249
+                                    }
+                                }
+                            }
+                        },
+                        "HAT901": {
+                            "flight_number": "HAT901",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "07:30:00",
+                            "scheduled_arrival_time_est": "09:35:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 78,
+                                        "economy": 108,
+                                        "business": 258
+                                    }
+                                }
+                            }
+                        },
+                        "HAT902": {
+                            "flight_number": "HAT902",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "08:15:00",
+                            "scheduled_arrival_time_est": "10:20:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 65,
+                                        "economy": 95,
+                                        "business": 245
+                                    }
+                                }
+                            }
+                        },
+                        "HAT903": {
+                            "flight_number": "HAT903",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "09:00:00",
+                            "scheduled_arrival_time_est": "11:05:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 102,
+                                        "economy": 132,
+                                        "business": 282
+                                    }
+                                }
+                            }
+                        },
+                        "HAT904": {
+                            "flight_number": "HAT904",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "09:45:00",
+                            "scheduled_arrival_time_est": "11:50:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 91,
+                                        "economy": 121,
+                                        "business": 271
+                                    }
+                                }
+                            }
+                        },
+                        "HAT905": {
+                            "flight_number": "HAT905",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "10:30:00",
+                            "scheduled_arrival_time_est": "12:35:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 110,
+                                        "economy": 140,
+                                        "business": 290
+                                    }
+                                }
+                            }
+                        },
+                        "HAT906": {
+                            "flight_number": "HAT906",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "11:15:00",
+                            "scheduled_arrival_time_est": "13:20:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 168,
+                                        "economy": 198,
+                                        "business": 348
+                                    }
+                                }
+                            }
+                        },
+                        "HAT907": {
+                            "flight_number": "HAT907",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "12:00:00",
+                            "scheduled_arrival_time_est": "14:05:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 159,
+                                        "economy": 189,
+                                        "business": 339
+                                    }
+                                }
+                            }
+                        },
+                        "HAT908": {
+                            "flight_number": "HAT908",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "13:20:00",
+                            "scheduled_arrival_time_est": "15:25:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 176,
+                                        "economy": 206,
+                                        "business": 356
+                                    }
+                                }
+                            }
+                        },
+                        "HAT909": {
+                            "flight_number": "HAT909",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "14:05:00",
+                            "scheduled_arrival_time_est": "16:10:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 155,
+                                        "economy": 185,
+                                        "business": 335
+                                    }
+                                }
+                            }
+                        },
+                        "HAT910": {
+                            "flight_number": "HAT910",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "15:30:00",
+                            "scheduled_arrival_time_est": "17:35:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 162,
+                                        "economy": 192,
+                                        "business": 342
+                                    }
+                                }
+                            }
+                        },
+                        "HAT911": {
+                            "flight_number": "HAT911",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "16:45:00",
+                            "scheduled_arrival_time_est": "18:50:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 167,
+                                        "economy": 197,
+                                        "business": 347
+                                    }
+                                }
+                            }
+                        },
+                        "HAT912": {
+                            "flight_number": "HAT912",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "18:00:00",
+                            "scheduled_arrival_time_est": "20:05:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 173,
+                                        "economy": 203,
+                                        "business": 353
+                                    }
+                                }
+                            }
+                        },
+                        "HAT913": {
+                            "flight_number": "HAT913",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "19:30:00",
+                            "scheduled_arrival_time_est": "21:35:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 165,
+                                        "economy": 195,
+                                        "business": 345
+                                    }
+                                }
+                            }
+                        },
+                        "HAT914": {
+                            "flight_number": "HAT914",
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "scheduled_departure_time_est": "21:10:00",
+                            "scheduled_arrival_time_est": "23:15:00",
+                            "dates": {
+                                "2024-05-24": {
+                                    "status": "available",
+                                    "available_seats": {
+                                        "basic_economy": 10,
+                                        "economy": 10,
+                                        "business": 5
+                                    },
+                                    "prices": {
+                                        "basic_economy": 158,
+                                        "economy": 188,
+                                        "business": 338
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "users": {
+                        "lei_rossi_3206": {
+                            "payment_methods": {
+                                "credit_card_3092185": {
+                                    "source": "credit_card",
+                                    "id": "credit_card_3092185",
+                                    "brand": "visa",
+                                    "last_four": "7447"
+                                }
+                            }
+                        }
+                    },
+                    "reservations": {
+                        "VAAOXJ": {
+                            "origin": "CLT",
+                            "destination": "MCO",
+                            "flight_type": "one_way",
+                            "cabin": "economy",
+                            "flights": [
+                                {
+                                    "origin": "CLT",
+                                    "destination": "MCO",
+                                    "flight_number": "HAT902",
+                                    "date": "2024-05-24",
+                                    "price": 95
+                                }
+                            ]
+                        }
+                    }
+                },
+                "user_data": null
+            },
+            "initialization_actions": null,
+            "message_history": null
+        },
+        "evaluation_criteria": {
+            "actions": [
+                {
+                    "action_id": "A_0",
+                    "name": "get_user_details",
+                    "arguments": {
+                        "user_id": "lei_rossi_3206"
+                    }
+                },
+                {
+                    "action_id": "A_1",
+                    "name": "get_reservation_details",
+                    "arguments": {
+                        "reservation_id": "VAAOXJ"
+                    }
+                },
+                {
+                    "action_id": "A_2",
+                    "name": "search_direct_flight",
+                    "arguments": {
+                        "origin": "CLT",
+                        "destination": "MCO",
+                        "date": "2024-05-24"
+                    }
+                },
+                {
+                    "action_id": "A_3",
+                    "name": "update_reservation_flights",
+                    "arguments": {
+                        "reservation_id": "VAAOXJ",
+                        "cabin": "economy",
+                        "flights": [
+                            {
+                                "flight_number": "HAT909",
+                                "date": "2024-05-24"
+                            }
+                        ],
+                        "payment_id": "credit_card_3092185"
+                    }
+                }
+            ],
+            "communicate_info": [
+                "HAT909"
+            ],
+            "nl_assertions": [
+                "Agent changes reservation VAAOXJ to flight HAT909 (the cheapest flight departing after 11:00 EST on 2024-05-24).",
+                "Agent pays the fare difference with the Visa card ending 7447 (credit_card_3092185), not the Mastercard."
+            ],
+            "reward_basis": [
+                "DB",
+                "COMMUNICATE"
+            ]
+        },
+        "annotations": null
     }
 ]
