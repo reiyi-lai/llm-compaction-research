@@ -92,61 +92,37 @@ JSON_SCHEMA = {
     },
 }
 
-# --- json_struct: naive JSON schema + a generic, domain-agnostic records
-# container that forces data-level granularity. Every compulsory field is
-# identical to JSON_SCHEMA; the ONLY difference is the added `structured_records`
-# array (each discrete item -> its own object, each attribute -> its own
-# key/value pair). This isolates "structure at the data granularity" as the
-# variable, without hardcoding any domain terms. Contrast: naive `json` crams
-# lists into a free-text observation string; `json_struct` atomizes them.
+# --- json_struct: naive JSON's lean base fields (minus `facts_learned`) plus a
+# `structured_records` list that atomizes task-relevant data into FLAT records —
+# each item is its own object with natural field names as keys. Uses OpenAI
+# JSON-object mode (not a strict schema) so the summarizer can use arbitrary,
+# domain-appropriate field names WITHOUT the verbose {key, value} wrapper a strict
+# schema would force (~40% fewer tokens per record). `facts_learned` is dropped: it
+# duplicated the entities `structured_records` already captures. This isolates
+# "structure at the data granularity" while staying lean and domain-agnostic;
+# contrast: naive `json` crams lists into a free-text string, `json_struct` atomizes.
 JSON_STRUCT_FORMAT = (
-    "Return ONLY a JSON object conforming to the provided schema: the user's request "
-    "and constraints, the facts learned, the decisions made and current state, any "
-    "unresolved items, AND `structured_records`. In "
-    "`structured_records`, represent each discrete item, record, option, or entity "
-    "that is RELEVANT TO THE USER'S TASK (e.g. each candidate option returned by a "
-    "lookup the user must choose among) as its OWN object, with each of its attributes "
-    "as a separate key/value pair. Do NOT summarize such lists into prose or collapse "
-    "them into a single field — give each relevant item its own record. Omit records "
-    "that are not pertinent to completing the task."
+    "Return ONLY a JSON object with these fields: `user_request_and_constraints` (a list "
+    "of strings), `decisions_and_state` (a list of strings), `unresolved` (a list of "
+    "strings), and `structured_records`. In `structured_records`, represent each discrete "
+    "item, record, option, or entity that is RELEVANT TO THE USER'S TASK (e.g. each "
+    "candidate option returned by a lookup the user must choose among) as its OWN FLAT "
+    "object: a short `type` field naming the kind of item, plus one field per attribute "
+    "using natural field names as keys — e.g. "
+    "{\"type\": \"flight_option\", \"flight_number\": \"HAT909\", \"departure\": \"14:05\", "
+    "\"price\": \"185\"}. Do NOT nest attributes under a key/value list, do NOT summarize "
+    "such lists into prose, and omit records not pertinent to completing the task."
 )
 
-import copy as _copy
-
-JSON_STRUCT_SCHEMA = _copy.deepcopy(JSON_SCHEMA)
-JSON_STRUCT_SCHEMA["json_schema"]["name"] = "knowledge_block_struct"
-_s = JSON_STRUCT_SCHEMA["json_schema"]["schema"]
-_s["properties"]["structured_records"] = {
-    "type": "array",
-    "items": {
-        "type": "object",
-        "additionalProperties": False,
-        "properties": {
-            "entity_type": {"type": "string"},
-            "attributes": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "additionalProperties": False,
-                    "properties": {
-                        "key": {"type": "string"},
-                        "value": {"type": "string"},
-                    },
-                    "required": ["key", "value"],
-                },
-            },
-        },
-        "required": ["entity_type", "attributes"],
-    },
-}
-_s["required"].append("structured_records")
+# OpenAI JSON-object mode: valid JSON guaranteed, arbitrary flat field names allowed.
+JSON_STRUCT_RESPONSE_FORMAT = {"type": "json_object"}
 
 # format -> (scaffolding text, optional response_format for structured output)
 CONSOLIDATION_FORMATS = {
     "prose": (PROSE_FORMAT, None),
     "markdown": (MARKDOWN_FORMAT, None),
     "json": (JSON_FORMAT, JSON_SCHEMA),
-    "json_struct": (JSON_STRUCT_FORMAT, JSON_STRUCT_SCHEMA),
+    "json_struct": (JSON_STRUCT_FORMAT, JSON_STRUCT_RESPONSE_FORMAT),
 }
 
 KNOWLEDGE_BLOCK_WRAPPER = """

@@ -60,6 +60,40 @@ Prose isn't expensive because of block size (its blocks are mid-sized). Losing t
 
 **JSON formats deliver a correct outcome for ~2.1–2.4× fewer tokens than prose/markdown** — they cost *less* and succeed *more*. The "cheap" lean-prose block is the most expensive per useful result.
 
+## 3b. Budget sweep — compression-ratio curve
+
+Sweeping the summarizer length budget (250 / 500 / 900 / 1500 words; k=5 per cell, 900 reused from the k-run) shows *where* under budget pressure each format's retention breaks — `ratio = block_tokens / summarizer_input_tokens` (lower = more compression), averaged over cuts:
+
+| format | ratio (block/input) | block tok | Visa-needle retention @ 250 / 500 / 900 / 1500 |
+|--------|:---:|:---:|:---|
+| **json** | **~0.25 (flat)** | 262–339 | **3/5 · 5/5 · 19/20 · 3/5** |
+| prose | 0.25 → 0.41 (rises) | 325–615 | 1/5 · 3/5 · 9/20 · 1/5 |
+| markdown | 0.29 → 0.46 (rises) | 369–721 | 0/5 · 3/5 · 17/20 · 3/5 |
+| **json_struct** | **~0.6 (flat, high)** | ~1,100 | **5/5 · 5/5 · 13/15 · 4/5** |
+
+**DB success (task outcome) by budget × format:**
+
+| format | DB @ 250 | @ 500 | @ 900 | @ 1500 |
+|--------|:---:|:---:|:---:|:---:|
+| prose | 3/4 | 2/5 | 9/18 | 3/5 |
+| markdown | 1/5 | 4/5 | 10/20 | 3/5 |
+| **json** | 4/5 | 5/5 | 18/20 | 3/5 |
+| **json_struct** | 5/5 | 3/5 | 13/15 | 4/5 |
+
+The JSON formats dominate DB across budgets — and, tellingly, **at the tightest budget (250w) the ordering is starkest**: `json_struct` 5/5 and `json` 4/5 vs `markdown` 1/5. (The 900w column is the higher-powered k≈15–20 point; the rest are k=5.) DB tracks the needle-retention curve only *loosely* — it is noisier because reads-on lets the agent sometimes recover a dropped needle by re-fetching, and because the 1500w cells are subject to n=5 reasoning variance (e.g. prose/md/json all dip to 3/5 at 1500w despite ample budget). So **needle retention is the cleaner signal; DB is the downstream, buffered readout.**
+
+**The crossover.** As the budget tightens, only the JSON formats still hold the exact identifier. At **250w**: `json_struct` **5/5** and `json` **3/5** retain the Visa needle, while `prose` **1/5** and `markdown` **0/5** lose it. So under budget pressure structured formats preserve the identifier and prose/markdown blur it — and the gap widens as budget shrinks.
+
+**Two very different compression behaviors among the JSON arms:**
+- **naive `json` is the efficient sweet spot** — it *honors* the budget (ratio flat ~0.25, ~290-tok blocks = most compressed) **and** retains the scalar identifier well. A scalar id fits cheaply in a lean field, so json gets tight compression *and* fidelity.
+- **`json_struct` largely *ignores* the budget** — blocks stay ~1,100 tok even at a "250-word" instruction (ratio ~0.6). Its perfect low-budget retention is partly because it *does not actually compress* to the budget: block size tracks the *number of records the model chooses to emit*, not the word budget.
+
+**Prose/markdown compress but lossily** — at 250w their blocks are a similar size (325–369 tok) yet they lose the needle (1/5, 0/5); they spend the budget on narrative that blurs the identifier.
+
+*Per-token fidelity ranking (at a fixed budget):* **naive json > json_struct > markdown > prose**, with the gap widening as budget tightens.
+
+> **Caveat — `json_struct` numbers are pre-flattening.** This sweep used the original strict `{key,value}` schema. The flat-record redesign cuts ~40% per record (a 900w block dropped ~1,700 → ~960 tok), but a single check showed it still ignores the word budget (a 500w block emitted *all* 15 flights → ~1,456 tok). The `json_struct` row above will be re-measured with the flat schema; **prose / markdown / json rows are unaffected.**
+
 ## 4. Synthesis
 
 Under production-style compaction (reads-on, repeated cuts), the format of the compressed context has a compounding effect:
