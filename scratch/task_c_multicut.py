@@ -1,19 +1,5 @@
-"""Task C: multi-cut compounding-fidelity task (Design B).
+"""Multi-cut Task Design"""
 
-Two needles stated ONCE in phase 0 and never repeated:
-  - exact-id : pay with Visa credit_card_3092185 (7447), NOT the Mastercard 1052991
-               (the Mastercard is VAAOXJ's payment_history default -> a live distractor)
-  - categorical: new flight must depart AFTER 11:00 and be the CHEAPEST such option
-
-Two distractor searches (steps 2-3) each trigger a consolidation cut, so the needles are
-re-compressed 2x before the payoff. Trip-1 (CLT->MCO) is NOT searched until step 4 -> the
-flight table is fetched FRESH, so payoff correctness depends purely on whether the needles
-survived the block chain. Run with TAU2_MAX_CUTS=2 (== # distractor searches, so the
-payoff search does NOT trigger a 3rd cut that would compress the fresh table), reads-on.
-
-Overlay = Task A's (HAT900-914 on 2024-05-24, VAAOXJ single economy segment). lei_rossi
-already carries both cards in the base DB.
-"""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from task_a_overlay import AGENT_DATA, GOLD_ACTIONS  # reuse trip-1 overlay + gold shape
