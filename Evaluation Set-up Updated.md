@@ -58,9 +58,11 @@ First, the agent always has access to the following:
 * Airline policies (Appendix A)  
 * Tool definitions (Appendix B)
 
-Each episode alternates **gather** phases (the agent calls read/search tools to collect information) with **consolidation** cuts (the harness compresses the accumulated history into a persistent Knowledge block in the chosen format, prunes the raw history, and re-injects the block at the top of context), and ends with a **write/act** phase (the agent commits a database action).
+Each episode alternates **gather** phases (the agent calls read/search tools) with **consolidation** cuts (the harness compresses the history into Knowledge block in the chosen format and re-injects the block at the top of context), and ends with a **write/act** phase (the agent commits a database action).
 
-The consolidation trigger is set to fire at **end-of-gather**: the moment a search/read tool result lands in context — after it is observed but before the agent reasons over it. A **single-cut** task (Tasks A/B) runs one gather → one cut → one act. A **multi-cut** task (Task C) chains *N* gather→cut cycles, where each cut re-compresses *[previous block + newly-gathered history]* into the next block (a "block chain"), before a final act. Phase-2 tool access is *reads-on* (ecological): after a cut the agent keeps all tools and may re-read, but its persistent memory of Phase-1 is only the block.
+The consolidation trigger is set to fire at **end-of-gather**: the moment a search/read tool result lands in context — after it is observed but before the agent reasons over it. 
+
+Phase-2 tool access is *reads-on* (ecological): after a cut the agent keeps all tools and may re-read, but its persistent memory of Phase-1 is only the block.
 
 **Multi-Turn Flow:**
 
@@ -99,9 +101,7 @@ Because the target's data is fetched **fresh** (never compacted), the multi-cut 
 
 What the task should have:
 
-* Enough phase-1 material to warrant compression  
-* Constraints/preferences/identifiers front-loaded in phase 1   
-* Unique DB outcome for scoring.
+* Constraints/preferences that warrant a heavy read from DB and a consequent write to DB
 
 Task A: Change flight for existing reservation in Economy (Expected Outcome: Modify)
 
