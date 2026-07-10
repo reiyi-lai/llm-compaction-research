@@ -32,33 +32,38 @@ The Mastercard is the reservation's `payment_history` default, so it is a **dist
 
 Computed from actual `usage` on every LLM call (`--llm-log-mode all`).
 
-| format | cuts | Input Tokens to Summarizer | **block gen (out)** | Total Cost of Compression Calls ($) | agent calls | agent input | **TOTAL tok** | **TOTAL $** |
-|--------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| prose | 2 | 4,073 | 1,297 | 1.39 | 16 | 95,918 | **114,897** | **35.0** |
-| markdown | 2 | 3,897 | 1,584 | 1.53 | 14 | 78,442 | 94,129 | 27.0 |
-| json | 2 | 2,495 | **730** | **0.81** | 14 | 82,273 | 95,876 | 27.7 |
-| json_struct | 2 | 3,801 | **2,329** | 1.97 | 13 | 81,515 | 97,750 | 27.6 |
+| format | **Summarizer** in / out / $ | **Agent** in / out / $ | **TOTAL tok** | **TOTAL $** |
+|--------|:---:|:---:|:---:|:---:|
+| prose | 3,589 / 1,230 / 1.28 | 96,162 / 12,074 / 30.90 | 113,055 | 32.18 |
+| markdown | 3,775 / 1,441 / 1.43 | 101,367 / 13,318 / 33.54 | 119,901 | 34.97 |
+| **json** | **3,012 / 635 / 0.83** | **84,383 / 11,571 / 28.73** | **99,601** | **29.56** |
 
-*To remove `cuts` column.
-$ in units of 10⁻³. 
-`block gen` = summarizer output. 
-`agent input` includes the blocks re-sent each turn.*
+*k = 20 per format (900-word budget); per-trial averages, 2 cuts each.
+Summarizer / Agent cells are shown as input / output / cost.
+$ in units of 10⁻³. TOTAL tok = summarizer (in+out) + agent (in+out); TOTAL $ = summarizer $ + agent $.
+`agent input` includes the block re-sent every turn.*
 
-**But summarizer overhead is dwarfed by agent execution** (~2 vs ~26). Block size barely moves the total; **agent work does** — and there **prose is the outlier** (16 calls / 96K input / $35, ~30% above the rest).
+**Summarizer overhead is dwarfed by agent execution** (~1–2 vs ~29–35), so block size matters mainly through the *re-send* — the block is re-injected every turn — not the one-time generation. On every axis (summarizer input, block output, summarizer cost, agent input/output, TOTAL tokens, TOTAL cost) **json is the cheapest format**. **Markdown is the most expensive**: its blocks are the largest (1,441 output tok vs json's 635) and are re-sent each turn, pushing agent input to 101K.
 
-**Why prose costs more — the same lesson as single-cut, via a new mechanism.** 
-Prose isn't expensive because of block size (its blocks are mid-sized). Losing the needle triggers **recovery churn** — extra turns re-fetching the user and untangling the wrong card (16 calls vs 13 for json_struct). Poor retention has a token cost. **json_struct's big blocks are essentially free overall**: the overhead is tiny next to execution, and clean retention avoids the churn.
+**Prose's cost is a runaway *tail*, not a high mean.** Prose was the only format to produce non-terminating trials: 2 of 20 hit the 60-step cap (`max_steps`) without ever completing a write, at ~3× the tokens of a normal trial (≈268K and ≈303K tok) — the extreme of needle-loss recovery churn. There is nothing comparable to exclude for markdown/json (both completed 20/20). Excluding prose's two runaways, its *completed-trial* mean is **93,914 tok / $0.0295** — essentially **tied with json** on raw cost. So prose's headline expense comes from worst-case blow-ups, a failure mode the structured formats never enter.
+
+| format | normal `user_stop` | `max_steps` runaway | trials with a write |
+|--------|:---:|:---:|:---:|
+| prose | 18 | **2** | 18 |
+| markdown | 20 | 0 | 20 |
+| json | 20 | 0 | 20 |
 
 ### Cost per *correct* task (efficiency × correctness)
 
 | format | $/trial | DB | **$ per correct task** |
 |--------|:---:|:---:|:---:|
-| prose | 35.0 | 60% | 58.4 |
-| markdown | 27.0 | 40% | 67.5 |
-| json | 27.7 | 100% | **27.7** |
-| json_struct | 27.6 | 100% | **27.6** |
+| prose | 32.18 | 45% | 71.5 |
+| markdown | 34.97 | 50% | 69.9 |
+| **json** | 29.56 | 90% | **32.8** |
 
-**JSON formats deliver a correct outcome for ~2.1–2.4× fewer tokens than prose/markdown** — they cost *less* and succeed *more*. The "cheap" lean-prose block is the most expensive per useful result.
+*(DB at k = 20, 900-word budget; $/trial is the all-20 mean. $ in units of 10⁻³.)*
+
+**JSON delivers a correct outcome for ~2.1× fewer tokens than prose or markdown** — it costs *less* and succeeds *more*. Once the low success rate is priced in, the "cheap" lean-prose block is the most expensive per useful result.
 
 ## 3b. Budget sweep — compression-ratio curve
 
