@@ -64,7 +64,7 @@ update_reservation_flights(
 
 ### DB outcome
 
-**DB ✓** — wrote `credit_card_3092185` (Visa …7447); matches gold. `db_reward = 1.0`
+**DB ✓** — wrote `credit_card_3092185` — Visa …7447; matches gold. `db_reward = 1.0`
 
 
 ---
@@ -245,7 +245,7 @@ update_reservation_flights(
 
 ### DB outcome
 
-**DB ✗** — wrote `credit_card_1052991` (Mastercard …1780 (reservation default)); does NOT match gold. `db_reward = 0.0`
+**DB ✗** — wrote `credit_card_1052991` — Mastercard …1780 (reservation default); does NOT match gold. `db_reward = 0.0`
 
 
 ---
@@ -379,4 +379,4 @@ update_reservation_flights(
 
 ### DB outcome
 
-**DB ✗** — wrote `credit_card_1052991` (Mastercard …1780 (reservation default)); does NOT match gold. `db_reward = 0.0`
+**DB ✗** — wrote `credit_card_1052991` — Mastercard …1780 (reservation default); does NOT match gold. `db_reward = 0.0`
